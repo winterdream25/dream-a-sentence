@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>今日关心 · 粉色梦境</title>
+    <title>来自梦角的信</title>
     <style>
-        /* 粉色梦幻风格 */
+        /* 温柔手账风格 */
         * {
             margin: 0;
             padding: 0;
@@ -13,172 +13,426 @@
         }
         
         body {
-            font-family: "微软雅黑", "圆体", "Yuanti SC", sans-serif;
-            background: linear-gradient(145deg, #ffd1dc 0%, #ffe4e1 100%);
+            background-color: #fbf7f0;
+            background-image: radial-gradient(#e0d9cc 1px, transparent 1px);
+            background-size: 30px 30px;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            position: relative;
-        }
-        
-        /* 小星星装饰 */
-        body::before {
-            content: "✨✨✨";
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-            opacity: 0.3;
-            animation: twinkle 3s infinite;
-        }
-        
-        body::after {
-            content: "✨✨✨";
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 24px;
-            opacity: 0.3;
-            animation: twinkle 3s infinite 1.5s;
-        }
-        
-        @keyframes twinkle {
-            0% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-            100% { opacity: 0.3; }
+            font-family: "Caveat", "站酷快乐体", "华文楷体", "KaiTi", cursive;
         }
         
         .container {
-            background: rgba(255, 245, 245, 0.9);
-            backdrop-filter: blur(12px);
-            border-radius: 60px;
-            padding: 45px 35px;
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
-            box-shadow: 0 30px 50px rgba(255, 150, 180, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            text-align: center;
+            background: rgba(255, 250, 240, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+            padding: 50px 45px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+            border: 1px solid #ece4d7;
             position: relative;
-            z-index: 1;
         }
         
-        h1 {
-            font-size: 26px;
-            font-weight: 300;
-            color: #b05b7a;
+        .container::before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            bottom: 30px;
+            width: 2px;
+            background: repeating-linear-gradient(to bottom, #d9d0c0 0px, #d9d0c0 8px, transparent 8px, transparent 16px);
+            opacity: 0.4;
+        }
+        
+        /* 初始提问区域 */
+        .question-screen {
+            text-align: center;
+            padding: 40px 20px;
+            transition: opacity 0.5s ease;
+        }
+        
+        .question-title {
+            font-size: 28px;
+            color: #8b7a63;
             margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .input-group {
+            margin: 30px 0;
+        }
+        
+        #characterInput {
+            font-family: inherit;
+            font-size: 24px;
+            padding: 15px 25px;
+            width: 80%;
+            max-width: 350px;
+            border: 2px solid #e5dbcf;
+            border-radius: 50px;
+            background: white;
+            text-align: center;
+            color: #5f4e3c;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        #characterInput:focus {
+            border-color: #c9bbaa;
+        }
+        
+        .start-button {
+            background: #e5dbcf;
+            border: none;
+            padding: 15px 45px;
+            border-radius: 50px;
+            font-size: 22px;
+            color: #7f6e5b;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            margin-top: 20px;
+            border: 1px solid #d6caba;
+        }
+        
+        .start-button:hover {
+            background: #d9cdbd;
+            transform: translateY(-2px);
+        }
+        
+        /* 主内容区域（初始隐藏） */
+        .main-content {
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .character {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-left: 25px;
+        }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            background: #e8dfd1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #b7a68b;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+        }
+        
+        .character-name {
+            font-size: 24px;
+            color: #8b7a63;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(255, 200, 210, 0.5);
+            border-bottom: 1px dashed #d4c9b5;
+            padding-bottom: 5px;
+        }
+        
+        .date-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 30px;
+            padding-left: 25px;
+            color: #b7aa99;
+            font-size: 18px;
+        }
+        
+        .date {
+            font-style: italic;
+        }
+        
+        .weather {
+            font-size: 16px;
+            opacity: 0.7;
         }
         
         .message-box {
             background: white;
-            border-radius: 50px;
-            padding: 45px 35px;
-            margin: 20px 0 30px;
-            min-height: 200px;
+            border-radius: 30px;
+            padding: 50px 40px;
+            margin: 20px 0 30px 25px;
+            box-shadow: 0 5px 15px rgba(190, 170, 150, 0.05);
+            border: 1px solid #f0e8dd;
+            position: relative;
+            min-height: 280px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #ffe2e2;
-            box-shadow: inset 0 0 20px #fff0f0;
+        }
+        
+        .message-box::after {
+            content: "📌";
+            position: absolute;
+            top: -5px;
+            right: 20px;
+            font-size: 24px;
+            opacity: 0.4;
+            transform: rotate(15deg);
         }
         
         #message {
-            font-size: 30px;
-            line-height: 1.6;
-            color: #8c4a5f;
+            font-size: 32px;
+            line-height: 1.7;
+            color: #5f4e3c;
             font-weight: 400;
+            text-align: center;
             transition: opacity 0.3s ease;
             word-break: break-word;
+            white-space: pre-line;
+            font-family: "Caveat", "站酷快乐体", "华文楷体", "KaiTi", cursive;
+        }
+        
+        .button-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            padding-right: 10px;
         }
         
         .button {
-            background: linear-gradient(145deg, #ffb6c1, #ff9eb5);
-            border: none;
-            padding: 18px 40px;
+            background: none;
+            border: 1px solid #d6caba;
+            padding: 12px 35px;
             border-radius: 40px;
-            font-size: 20px;
-            color: white;
+            font-size: 18px;
+            color: #9b8b78;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 15px rgba(255, 120, 140, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            margin-top: 20px;
-            font-weight: 300;
+            transition: all 0.2s;
+            font-family: inherit;
             letter-spacing: 1px;
         }
         
         .button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(255, 120, 140, 0.4);
-            background: linear-gradient(145deg, #ff9eb5, #ff8da1);
+            background: #ece1d2;
+            color: #7f6e5b;
+            transform: translateY(-2px);
         }
         
         .footer {
-            margin-top: 30px;
-            color: #b08e9b;
-            font-size: 15px;
+            margin-top: 40px;
+            padding-left: 25px;
+            color: #c5b7a8;
+            font-size: 14px;
             font-style: italic;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .signature {
+            font-size: 20px;
+            opacity: 0.6;
+        }
+        
+        /* 重置按钮（小字） */
+        .reset-link {
+            text-align: right;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #c5b7a8;
+            cursor: pointer;
+            text-decoration: underline;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        
+        .reset-link:hover {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✨ 今日关心 · 粉色梦境 ✨</h1>
-        
-        <div class="message-box">
-            <div id="message">今天记得好好吃饭</div>
+        <!-- 初始提问区域 -->
+        <div class="question-screen" id="questionScreen">
+            <div class="question-title">你将收到的信息来自？</div>
+            <div class="input-group">
+                <input type="text" id="characterInput" placeholder="输入梦角的名字" autocomplete="off">
+            </div>
+            <button class="start-button" id="startBtn">开始</button>
         </div>
         
-        <button class="button" onclick="getNewMessage()">换一句温柔</button>
-        <div class="footer">每天都要爱自己</div>
+        <!-- 主内容区域（初始隐藏） -->
+        <div class="main-content" id="mainContent">
+            <div class="character">
+                <div class="avatar">💌</div>
+                <div class="character-name" id="characterName"></div>
+            </div>
+            
+            <div class="date-section">
+                <span class="date" id="date"></span>
+                <span class="weather" id="weather"></span>
+            </div>
+            
+            <div class="message-box">
+                <div id="message">正在为你写一封信...</div>
+            </div>
+            
+            <div class="button-section">
+                <button class="button" id="generateBtn">换一封信</button>
+            </div>
+            
+            <div class="reset-link" id="resetLink">← 换一个梦角</div>
+            
+            <div class="footer">
+                <span>来自梦角的信 ✦ 今日送达</span>
+                <span class="signature">💌</span>
+            </div>
+        </div>
     </div>
 
     <script>
-        // 温暖话语库
-        const messages = [
-            "今天记得好好吃饭",
-            "累了就休息一下",
-            "你已经做得很好了",
-            "今天也会是美好的一天",
-            "记得多喝水",
-            "你值得被温柔对待",
-            "慢慢来，不着急",
-            "今天有没有开心的事",
-            "别太勉强自己",
-            "有人在默默关心你",
-            "今天也要开心",
-            "你比想象中更坚强",
-            "休息一下也没关系",
-            "今天的你也很可爱",
-            "记得早点睡",
-            "天气变化，注意保暖",
-            "你很重要",
-            "今天也要照顾好自己",
-            "允许自己不完美",
-            "你被爱着"
+        // ==================== 配置区 ====================
+        
+        // 梦角想说的话（自由添加/修改）
+        const MESSAGES = [
+            "今天看到一朵云，\n长得很像你笑的样子。",
+            "记得吃早饭，\n不要饿着。",
+            "窗外的花开得很好，\n下次带你来看。",
+            "昨晚梦到你了，\n醒来还在笑。",
+            "累了的话，\n我在这里。",
+            "今天的风很温柔，\n像你的名字。",
+            "买了一本书，\n里面有句话想读给你听。",
+            "突然想到你喜欢的那个口味，\n今天特意去买了。",
+            "别太勉强自己，\n你已经很棒了。",
+            "今天也要开心，\n算我拜托你的。",
+            "下雨了，记得带伞，\n笨蛋。",
+            "今天做了你爱吃的，\n虽然你不在。",
+            "月亮很圆，\n分你一半。"
         ];
-
+        
+        // 天气心情
+        const WEATHER_MOODS = ["☀️ 晴朗", "☁️ 多云", "🌤 温柔", "🍃 微风", "🌙 宁静", "✨ 清澈", "🌸 花开"];
+        
+        // ==================== 功能代码 ====================
+        
+        // 获取DOM元素
+        const questionScreen = document.getElementById('questionScreen');
+        const mainContent = document.getElementById('mainContent');
+        const characterInput = document.getElementById('characterInput');
+        const startBtn = document.getElementById('startBtn');
+        const characterNameEl = document.getElementById('characterName');
+        const resetLink = document.getElementById('resetLink');
+        const dateEl = document.getElementById('date');
+        const weatherEl = document.getElementById('weather');
+        const messageEl = document.getElementById('message');
+        const generateBtn = document.getElementById('generateBtn');
+        
+        // 获取当前日期
+        function getTodayDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}.${month}.${day}`;
+        }
+        
+        // 获取随机天气
+        function getRandomWeather() {
+            return WEATHER_MOODS[Math.floor(Math.random() * WEATHER_MOODS.length)];
+        }
+        
+        // 获取随机消息
         function getRandomMessage() {
-            const randomIndex = Math.floor(Math.random() * messages.length);
-            return messages[randomIndex];
+            return MESSAGES[Math.floor(Math.random() * MESSAGES.length)];
         }
-
-        function getNewMessage() {
-            const messageEl = document.getElementById('message');
-            messageEl.style.opacity = '0';
-            setTimeout(() => {
+        
+        // 更新消息显示
+        function updateMessage(showAnimation = true) {
+            if (showAnimation) {
+                messageEl.style.opacity = '0';
+                setTimeout(() => {
+                    messageEl.textContent = getRandomMessage();
+                    messageEl.style.opacity = '1';
+                }, 200);
+            } else {
                 messageEl.textContent = getRandomMessage();
-                messageEl.style.opacity = '1';
-            }, 150);
+            }
         }
-
-        window.onload = function() {
-            document.getElementById('message').textContent = getRandomMessage();
-        };
+        
+        // 切换到主界面
+        function showMainContent(characterName) {
+            // 设置梦角名字
+            characterNameEl.textContent = characterName;
+            
+            // 设置日期和天气
+            dateEl.textContent = getTodayDate();
+            weatherEl.textContent = getRandomWeather();
+            
+            // 显示第一条消息
+            messageEl.textContent = getRandomMessage();
+            
+            // 切换界面
+            questionScreen.style.opacity = '0';
+            setTimeout(() => {
+                questionScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                // 触发重排后渐显
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                }, 10);
+            }, 300);
+        }
+        
+        // 切换回提问界面
+        function showQuestionScreen() {
+            mainContent.style.opacity = '0';
+            setTimeout(() => {
+                mainContent.style.display = 'none';
+                questionScreen.style.display = 'block';
+                setTimeout(() => {
+                    questionScreen.style.opacity = '1';
+                    characterInput.value = '';  // 清空输入
+                    characterInput.focus();      // 自动聚焦
+                }, 10);
+            }, 300);
+        }
+        
+        // 开始按钮点击事件
+        startBtn.addEventListener('click', function() {
+            const characterName = characterInput.value.trim();
+            if (characterName === '') {
+                alert('请输入梦角的名字 ✨');
+                return;
+            }
+            showMainContent(characterName);
+        });
+        
+        // 输入框回车事件
+        characterInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startBtn.click();
+            }
+        });
+        
+        // 换一封信按钮
+        generateBtn.addEventListener('click', function() {
+            updateMessage(true);
+            // 顺便换一下天气，更有新鲜感
+            weatherEl.textContent = getRandomWeather();
+        });
+        
+        // 重置链接（换一个梦角）
+        resetLink.addEventListener('click', function() {
+            showQuestionScreen();
+        });
+        
+        // 初始化样式
+        questionScreen.style.opacity = '1';
+        mainContent.style.opacity = '1';
+        mainContent.style.display = 'none';
     </script>
 </body>
 </html>
